@@ -1,0 +1,8 @@
+import { Link } from "react-router-dom";
+import useApi from "../hooks/useApi";
+export default function ProjectsPage() {
+  const { data: projects, loading, error } = useApi("/projects", []);
+  return <section className="bg-[#071b2b] px-4 py-16 text-white sm:px-6 md:pb-24 md:pt-36 lg:px-8"><div className="mx-auto max-w-7xl"><h1 className="mb-8 text-center text-2xl font-extrabold sm:text-3xl md:mb-14 md:text-4xl lg:text-5xl">All <span className="text-cyan-400">Projects</span></h1>
+  {loading ? <p className="text-center text-slate-300">Loading...</p> : error ? <p className="text-center text-red-400">{error}</p> :
+  <div className="grid gap-4 sm:gap-5 md:gap-6 md:grid-cols-2 xl:gap-8 xl:grid-cols-3">{projects.map(project=><div key={project._id} className="overflow-hidden rounded-[20px] border border-cyan-400/20 bg-[#0a2236] transition-smooth duration-300 hover:border-cyan-400/40 hover:shadow-lg hover:shadow-cyan-400/20 hover:-translate-y-1 sm:rounded-[24px] animate-fade-in-up"><div className="h-40 bg-gradient-to-br from-cyan-500/30 to-[#071b2b] sm:h-48 md:h-56" /><div className="p-4 sm:p-5 md:p-7"><p className="text-xs uppercase tracking-wider text-cyan-400 sm:text-sm">{project.category}</p><h2 className="mt-2 text-lg font-bold sm:mt-3 md:mt-3 md:text-2xl">{project.title}</h2><p className="mt-2 text-xs leading-6 text-slate-300 sm:text-sm sm:leading-7 md:mt-4 md:text-base md:leading-8">{project.summary}</p><Link to={`/projects/${project.slug}`} className="mt-3 inline-block rounded-lg border border-cyan-500 px-4 py-2 text-xs font-semibold text-cyan-400 transition hover:bg-cyan-500 hover:text-[#071b2b] sm:px-5 sm:py-2 sm:text-sm md:mt-6 md:px-6 md:py-3">View Case Study</Link></div></div>)}</div>}</div></section>;
+}
